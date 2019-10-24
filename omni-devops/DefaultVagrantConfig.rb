@@ -1,0 +1,62 @@
+#
+# DefaultVagrantConfig.rb
+#
+# This file is required by the omni-devops Vagrantfile to initialize settings
+#
+# DO NOT CHANGE THIS FILE DIRECTLY!
+#
+# To Override settings copy to LocalVagrantConfig.rb and modify variables as needed
+#
+
+# Standard AWS Settings
+AWS_ACCESS_KEY="setme"
+AWS_SECRET_KEY="setme"
+AWS_KEYPAIR_NAME="setme"
+AWS_SSH_KEY_PATH="/path/to/key.pem"
+AWS_DEFAULT_REGION="us-west-2"
+AWS_CREDENTIAL_FILE="/path/to/rds-credentials.txt"
+
+#
+# Configure Git Repository and Branch for Omniwallet
+#
+OMNIWALLET_GIT_REPO="https://github.com/mastercoin-MSC/omniwallet.git"
+OMNIWALLET_GIT_BRANCH="master"
+
+#
+# Configure Git Repository and Branch for OmniEngine
+#
+OMNIENGINE_GIT_REPO="https://github.com/mastercoin-MSC/omniEngine.git"
+OMNIENGINE_GIT_BRANCH="master"
+
+#
+# Configure Git Repository and Branch for Master Core build from source
+# omnicore-master is the latest (most) stable branch of Master Core with
+# necessary devops additions -- currently based on mscore-0.0.8 branch.
+#
+MASTERCORE_GIT_REPO="https://github.com/msgilligan/mastercore.git"
+MASTERCORE_GIT_BRANCH="omnicore-master"
+
+# Standard PostgreSQL Settings
+PGUSER="setme"
+PGPASSWORD="setme"
+PGHOST="setme"
+PGPORT="5432"
+
+# Amazon RDS DB Settings
+OMNI_DB_INSTANCE="instance-id-goes-here"
+OMNI_DB_SEC_GID="security group id to assign your RDS instance goes here"
+
+# Username/Password for 'omniengine' and 'omniwww' database users
+OMNIDB_ENGINE_USER="omniengine"
+OMNIDB_ENGINE_PASSWORD="setme"
+OMNIDB_WWW_USER="omniwww"
+OMNIDB_WWW_PASSWORD="setme"
+
+# Bitcoind/Mastercored settings
+BTCRPC_CONNECT="setme"
+BTCRPC_USER="setme"
+BTCRPC_PASSWORD="setme"
+BTCRPC_SSL="1"
+
+
+

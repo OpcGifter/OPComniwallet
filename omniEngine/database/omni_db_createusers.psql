@@ -1,0 +1,31 @@
+/* the following user commands should be executed while connected to your omniwallet database */
+
+/*
+   Your command line or other tool that invokes this script should connect to
+   the correct database, typically 'omniwallet'.
+
+   It should also set the username & password variables:
+        :omniengine, :omnienginePassword, :omniwww, and :omniwwwPassword
+   See scripts/db-init.sh for an example.
+*/
+
+drop role if exists :omniengine, :omniwww;
+create user :omniengine unencrypted password :omnienginePassword;
+create user :omniwww unencrypted password :omniwwwPassword;
+
+/*  If you change usernames make sure to update them below */
+
+GRANT connect ON DATABASE omniwallet to :omniengine, :omniwww;
+
+GRANT USAGE ON SCHEMA public TO :omniengine,:omniwww;
+GRANT SELECT,UPDATE ON ALL SEQUENCES IN SCHEMA public TO :omniengine;
+GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO :omniwww;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO :omniengine;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO :omniwww;
+GRANT SELECT, INSERT, UPDATE, DELETE ON table following, addressesinwallets , sessions , wallets to :omniwww;
+GRANT INSERT ON txjson TO :omniwww;
+GRANT INSERT(txhash,protocol,txdbserialnum,txtype,txversion) ON transactions to :omniwww;
+GRANT INSERT ON addressesintxs to :omniwww;
+GRANT INSERT ON walletbackups to :omniwww;

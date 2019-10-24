@@ -1,0 +1,25 @@
+#--Apt-get---
+#sudo apt-get install python-dev libffi-dev libpq-dev libcurl4-openssl-dev
+#prefer to install from pip package, remove old package
+#sudo apt-get --auto-remove remove python-psycopg2
+
+#---Pip---
+#pip install urllib3[secure]
+argparse==1.2.1
+cryptography==2.6.1
+idna==2.8
+ipaddress==1.0.17
+jsonpatch==1.10
+jsonpointer==1.9
+oauth==1.0.1
+prettytable==0.7.2
+psycopg2>=2.7,<2.8 --no-binary psycopg2
+pyOpenSSL==19.0.0
+pyasn1==0.1.9
+pycparser==2.17
+pycurl==7.43.0
+requests==2.21.0
+six==1.10
+urllib3==1.24.2
+redis==2.10.5
+simplejson==3.3.1

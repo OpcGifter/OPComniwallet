@@ -1,0 +1,122 @@
+= Jenkins Continuous Integration Server
+:numbered:
+
+The Omni Foundation is running a Jenkins continuous integration server at http://ci.omni.foundation[ci.omni.foundation].
+
+These are the current (as of Jan 20th, 2015) jobs with explanations.
+
+== Omni Core (Master Core)
+
+=== Build Jobs
+
+[options="header",frame="all"]
+|===
+| Job Name | Github Repo | Branch | Test Jobs Triggered | Notes
+
+| http://ci.omni.foundation/job/omnicore-stable/[omnicore-stable]
+| https://github.com/mastercoin-MSC/mastercore/[mastercoin-MSC/mastercore]
+| mscore-0.0.8
+| `msc-mainnet-consensus`, `msc-integ-regtest`
+a| Tip of Git branch for latest "stable" Omni Core
+
+* Builds `mastercored`
+* Runs included C++ Boost unit tests.
+
+| http://ci.omni.foundation/job/omnicore-stable/[omnicore-integration]
+| https://github.com/mastercoin-MSC/mastercore/[mastercoin-MSC/mastercore]
+| mscore-0.0.9
+| `msc-mainnet-consensus`, `msc-integ-regtest`
+a| Tip of development/integration/unstable Omni Core branch
+
+* Builds `mastercored`
+* Runs included C++ Boost unit tests.
+
+| http://ci.omni.foundation/job/OmniJ/[OmniJ]
+| https://github.com/OmniLayer/OmniJ[OmniLayer/OmniJ]
+| master
+| none (see notes)
+a| `OmniJ` repo contains OmniJ library, test support, and tests. This job:
+
+* Builds `OmniJ` jars
+* Builds http://ci.omni.foundation/job/OmniJ/javadoc/[OmniJ API documentation]
+* Does *not* trigger integration tests because those jobs are directly triggered by changes to the `OmniJ` repo.
+
+|===
+
+=== Integration Test Jobs
+
+[options="header",frame="all"]
+|===
+| Job Name | Github Repo | Branch | Parameters | Notes
+
+| http://ci.omni.foundation/job/msc-integ-regtest[msc-integ-regtest]
+| https://github.com/OmniLayer/OmniJ[OmniLayer/OmniJ]
+| master
+a|
+
+* `JOBNAME_TO_TEST`: Job that built the `mastercored` under test (`omnicore-stable` or `omnicore-integration`)
+a| Runs integration tests of JSON-RPC commands against `mastercored` running in https://bitcoin.org/en/developer-examples#regtest-mode[RegTest Mode]
+
+* Job shell script: https://github.com/OmniLayer/OmniJ/blob/master/test-msc-integ-regtest.sh[test-msc-integ-regtest.sh]
+* Gradle task: `regTest`
+
+| http://ci.omni.foundation/job/msc-mainnet-consensus[msc-mainnet-consensus]
+| https://github.com/OmniLayer/OmniJ[OmniLayer/OmniJ]
+| master
+a|
+
+* `JOBNAME_TO_TEST`: Job that built the `mastercored` under test (`omnicore-stable` or `omnicore-integration`)
+a| Runs consensus tests using JSON-RPC commands against `mastercored` running on *Main Net*.
+
+* Job shell script: https://github.com/OmniLayer/OmniJ/blob/master/test-msc-consensus-mainnet.sh[test-msc-consensus-mainnet.sh]
+* Gradle task: `consensusTest`
+
+|===
+
+== Bitcoin Core Build and Integration RegTest 
+
+We are building and testing Bitcoin Core for the following reasons:
+
+. So we can compare test results between Omni Core and Bitcoin Core
+. To test our tests against Bitcoin Core
+. To allow us to prepare a subset of our tests for submitting upstream.
+
+=== Build Job
+
+[options="header",frame="all"]
+|===
+| Job Name | Github Repo | Branch | Test Jobs Triggered | Notes
+
+| http://ci.omni.foundation/job/bitcoin-core/[bitcoin-core]
+| https://github.com/bitcoin/bitcoin/[bitcoin/bitcoin]
+| 0.9.3
+| `btc-integ-regtest`
+a| 
+
+* Builds latest shipping version of `bitcoind`
+* Runs included C++ Boost unit tests.
+
+|===
+
+=== Integration Test Job
+
+[options="header",frame="all"]
+|===
+| Job Name | Github Repo | Branch | Parameters | Notes
+
+| http://ci.omni.foundation/job/btc-integ-regtest[btc-integ-regtest]
+| https://github.com/OmniLayer/OmniJ[OmniLayer/OmniJ]
+| master
+|
+a|
+
+. Job shell script: https://github.com/OmniLayer/OmniJ/blob/master/test-btc-integ-regtest.sh[test-btc-integ-regtest.sh]
+. Gradle task: `regTestBTC`
+
+|===
+
+== OmniEngine Database Schema Test Jobs
+
+Documentation TBD.
+
+
